@@ -7,6 +7,8 @@ from logutil import LogUtil
 from importenv import ImportEnvKeyEnum
 import importenv as setting
 
+import git
+
 PYTHON_APP_HOME = os.getenv('PYTHON_APP_HOME')
 logger = getLogger(__name__)
 log_conf = LogUtil.get_log_conf(PYTHON_APP_HOME + '/config/log_config.json')
@@ -25,6 +27,13 @@ if __name__ == '__main__':
   # args = sys.argv
   # args[0]はpythonのファイル名。
   # 実際の引数はargs[1]から。
+
+  # urlは適宜自身が編集可能なレポジトリに書き換えてください
+  url = setting.ENV_DIC[ImportEnvKeyEnum.GIT_REPOSITORY_URL.value]
   
-  print('Hello Python on Docker!!')
-  logger.info('This is logger message!!')
+  # cloneしたプロジェクトを出力するパス
+  to_path = PYTHON_APP_HOME + '/repo/' + setting.ENV_DIC[ImportEnvKeyEnum.GIT_DIRECTORY.value]
+  
+  git.Repo.clone_from(
+      url,
+      to_path)  
