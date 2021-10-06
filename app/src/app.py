@@ -36,4 +36,4 @@ if __name__ == '__main__':
   
   git.Repo.clone_from(
       url,
-      to_path)  
+      to_path)
